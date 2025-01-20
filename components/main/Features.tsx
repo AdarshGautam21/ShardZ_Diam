@@ -8,6 +8,7 @@ import coin from '@/public/images/coins.png'
 import img from '@/public/images/img.png'
 import right from '@/public/images/bigright.png'
 import rightrectangle from '@/public/images/Rectangle 4.png'
+import diam from '@/public/images/diam_logo.png'
 import Link from 'next/link'
 import { Button } from '../ui/button'
 function Features() {
@@ -137,6 +138,18 @@ function Features() {
                     <Button className='  rounded-full px-[1vw] py-0 text-center md:rounded-[2vw] text-[2.5vw]  sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] ' variant="secondary">Get Started -{'>'} </Button>
                 </Link>
                 </div>
+                <div className='flex mt-60 flex-col justify-end items-center' 
+                style={{alignItems: "self-end",
+                    marginTop: "60px"
+                }}>
+                    <div className='rounded-full px-[1vw] py-0 text-center md:rounded-[2vw] text-[2.5vw]  sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] '>
+                        <h1 className='font-extrabold text-white text-[2.5vw] sm:text-[2vw]  md:text-[1.5vw]'>
+                        PARTNERS
+                        </h1>
+                    </div>
+                    <Image src={diam} alt="" width={80} height={80} className=''/>
+                </div>
+
         </div>
     </div>
   )
