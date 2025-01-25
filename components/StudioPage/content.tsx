@@ -126,7 +126,8 @@ const Content = () => {
               <div className="bg-black flex items-center p-[0.5vw] text-white rounded-[0.5vw]">
                 <div className='w-4/12 relative' style={{ width: '100%', maxWidth: '300px' }}>
 
-                <img src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className='w-full h-[20vh]'   />
+                {/* <img src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className='w-full h-[20vh]'   /> */}
+                <image src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className='w-full h-[20vh]'   />
                 
                 {/* <div className='absolute bottom-[1vw] px-[1vw] text-[1vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.time}</div> */}
 
@@ -191,7 +192,7 @@ const Content = () => {
 
                 {/* <img src={video.thumbnail.src} className='w-[80%]' alt={video.title}   /> */}
 
-                <img src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className='w-full h-[20vh]'   />
+                <image src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className='w-full h-[20vh]'   />
 
                 {/* <div className='absolute bottom-[1vw] px-[1vw] text-[1vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.time}</div> */}
                 <div className='w-full p-[1vw]  ' >

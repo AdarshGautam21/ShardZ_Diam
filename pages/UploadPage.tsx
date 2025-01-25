@@ -355,12 +355,12 @@ useEffect(() => {
         {selectedThumbnail ? (
           <div className='w-[25vw]' >
             <div className='flex justify-between' >
-              <img
+              <image
               src={selectedThumbnail}
               alt="Selected Thumbnail"
               className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"
               />
-              <img
+              <image
               src={selectedThumbnail}
               alt="Selected Thumbnail"
               className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"

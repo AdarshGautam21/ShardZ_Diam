@@ -88,7 +88,7 @@ function NftPage() {
                 <div className='w-full md:flex items-center pb-[40vw] md:pb-0 ' >
                    
                         <div className=' mx-[2vw] md:mx-0 w-full md:w-[50%] h-[70vw] md:h-[25vw]  p-[3vw] md:p-[1vw] lg:w-1/2 border border-cyan-400 rounded-[0.5vw] bg-gradient-to-tr from-[#0f0f0f78] to-[#33c2ee91]' >
-                            <img  className='w-full  rounded-[0.5vw] h-full ' src={`https://gateway.lighthouse.storage/ipfs/${thumbnail}`} alt=''/>
+                            <image  className='w-full  rounded-[0.5vw] h-full ' src={`https://gateway.lighthouse.storage/ipfs/${thumbnail}`} alt=''/>
                         </div>
                    
                     <div className='  md:w-1/2 mx-[2vw] space-y-[1vw] ' >

@@ -125,7 +125,7 @@ function StudioPage() {
 
                 <div className='block md:hidden' >
             
-                        <img className='w-[6vw] h-[6vw] rounded-full ' src="https://github.com/shadcn.png" />
+                        <image className='w-[6vw] h-[6vw] rounded-full ' src="https://github.com/shadcn.png" />
                         
                 
                 </div>
@@ -134,7 +134,7 @@ function StudioPage() {
             <div className='hidden md:block p-[0.1vw] rounded-[0.5vw] bg-gradient-to-tl from-cyan-400 to-black m-2' >
                 <div className='flex bg-black rounded-[0.5vw]  w-[10vw] h-[2.5vw] space-x-[1vw]  items-center' >
                
-                    <img className='w-[2vw] rounded-full ' src="https://github.com/shadcn.png" />
+                    <image className='w-[2vw] rounded-full ' src="https://github.com/shadcn.png" />
            
                     <p className='  text-[0.7vw] text-white'>Andy William</p>
                     <MenuIcon className='text-white w-[1vw] h-[1vw] cursor-pointer hover:bg-[#33c2ee50] rounded-[0.2vw] ' />

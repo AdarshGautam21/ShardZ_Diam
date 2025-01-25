@@ -22,7 +22,7 @@ const Playlist = () => {
             <div className='bg-gradient-to-b from-[#fff0]  via-[#ffffff2d] to-cyan-400 p-[0.2vw] rounded-[0.5vw]' >
                 <div key={video.id} className="bg-black   text-white rounded-[0.5vw] overflow-hidden">
                   <div className='relative' >
-                  <img src={video.thumbnail.src} alt={video.title} className="w-full" />
+                  <image src={video.thumbnail.src} alt={video.title} className="w-full" />
                   <div className='absolute bottom-[1vw] px-[1vw] text-[2vw] md:text-[1vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.videoNum}</div>
                   </div>
                     <div className="p-[1vw]">

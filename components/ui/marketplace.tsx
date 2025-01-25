@@ -44,7 +44,7 @@ const Market = () => {
                 <div className="bg-[#151414] h-full text-white rounded-[0.5vw] overflow-hidden">
                   <div className=  "w-full relative " >
                     {/* <Link href='/NftPage'> */}
-                  <img src={`https://gateway.lighthouse.storage/ipfs/${asset.thumbnail}`}  alt={'thumbnails'} className="w-full h-full p-[1vw]" />
+                  <image src={`https://gateway.lighthouse.storage/ipfs/${asset.thumbnail}`}  alt={'thumbnails'} className="w-full h-full p-[1vw]" />
                   {/* </Link> */}
                   </div>
                     <div className="p-[1vw]">
