@@ -17,7 +17,7 @@ function Hero() {
         <div className="absolute rounded-[5vh] inset-0  bg-gradient-to-t from-[#00000000] from-60%  to-[#00c3ff] opacity-50 "></div> */}
 
         <div className='mx-[10vw]  space-y-[2vw]' >
-            <div className='flex justify-center text-[3vw] sm:text-[2.5vw] md:text-[1vw] ' ><p className='text-white' >HOW SHARDS WORKS</p></div>
+            <div className='flex justify-center text-[3vw] sm:text-[2.5vw] md:text-[1vw] ' ><p className='text-white' >HOW SHARDZ WORKS</p></div>
             <div className='flex justify-center ' ><p className=' font-extrabold text-white text-[3.5vw] sm:text-[3vw]  md:text-[2.5vw]' >Stream, Mint, Trade, Earn</p></div>
             <div className='flex-col justify-center'>
                 <div className='flex text-center text-[2.5vw] sm:text-[2.5vw] md:text-[1.5vw] lg:-[1vw]'><p className='text-white' >Explore and Learn How You Can Engage with Content, Convert Videos into NFTs, and Participate in Fractionalized Trading to Unlock Rewards and Opportunities.</p></div>
