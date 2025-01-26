@@ -21,7 +21,7 @@ const Recommendation = () => {
                 <div key={video.id} className="bg-black flex   text-white rounded-[0.5vw]">
                   <div className='relative w-1/3 md:w-1/2' >
 
-                  <image src={video.thumbnail.src} className='w-full h-full  ' alt={video.title}   />
+                  <img src={video.thumbnail.src} className='w-full h-full  ' alt={video.title}   />
 
                   <div className='absolute bottom-[0.5vw] px-[1vw] text-[1vw] md:text-[0.5vw] rounded-[0.2vw]  bg-[#00000055] right-[0.5vw] ' >{video.time}</div>
 

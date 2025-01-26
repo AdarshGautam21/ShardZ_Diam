@@ -258,7 +258,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
      
                   <div className='w-[25vw]' >
                     <div className='flex justify-between' >
-                      <image
+                      <img
                       src={`https://gateway.lighthouse.storage/ipfs/${videoInfo.fileName.substring(videoInfo.fileName.lastIndexOf(' ') + 1)}`}
                       alt="Selected Thumbnail"
                       className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"

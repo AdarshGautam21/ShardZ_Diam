@@ -35,12 +35,12 @@ const ThumbnailSelector: React.FC = () => {
         {selectedThumbnail ? (
           <div className='w-[25vw]' >
             <div className='flex justify-between' >
-              <image
+              <img
               src={selectedThumbnail}
               alt="Selected Thumbnail"
               className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"
               />
-              <image
+              <img
               src={selectedThumbnail}
               alt="Selected Thumbnail"
               className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"

@@ -131,7 +131,7 @@ const MyVideos: React.FC = () => {
             <div className='bg-gradient-to-b from-[#fff0] via-[#ffffff2d] to-cyan-400  p-[0.3vw] md:p-[0.1vw] rounded-[0.5vw]' >
                 <div key={video.id} className="bg-black   text-white rounded-[0.5vw] overflow-hidden">
                   <div className='relative' style={{ width: '100%', maxWidth: '300px' }}>
-                  <image src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className="w-full h-auto" style={{ aspectRatio: '3/2' }}  />
+                  <img src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className="w-full h-auto" style={{ aspectRatio: '3/2' }}  />
                   {/* <div className='absolute top-[1vw] px-[1vw] text-[2vw] md:text-[1.2vw] lg:text-[0.9vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.time}</div> */}
                   </div>
                     <div className="p-[1vw]">

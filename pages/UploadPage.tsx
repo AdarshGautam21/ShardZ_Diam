@@ -14,7 +14,6 @@ import Lottie, {LottieProps} from 'react-lottie';
 import uploadAnimationData from '@/public/animation/uploading.json'
 import successfulAnimation from '@/public/animation/successful.json'
 import Link from 'next/link';
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { upload } from "@lighthouse-web3/sdk";
 import lighthouse from '@lighthouse-web3/sdk'
 import axios from 'axios'
@@ -355,12 +354,12 @@ useEffect(() => {
         {selectedThumbnail ? (
           <div className='w-[25vw]' >
             <div className='flex justify-between' >
-              <image
+              <img
               src={selectedThumbnail}
               alt="Selected Thumbnail"
               className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"
               />
-              <image
+              <img
               src={selectedThumbnail}
               alt="Selected Thumbnail"
               className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"

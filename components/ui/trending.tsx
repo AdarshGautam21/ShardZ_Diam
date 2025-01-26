@@ -24,7 +24,7 @@ const TrendingSection = () => {
                 <div key={video.id} className="bg-black flex items-center p-[0.5vw]  text-white rounded-[0.5vw]">
                   <div className=' w-1/2 md:w-4/12 relative ' >
 
-                  <image src={video.thumbnail.src} className='w-full' alt={video.title}   />
+                  <img src={video.thumbnail.src} className='w-full' alt={video.title}   />
 
                   <div className='absolute bottom-[1vw] px-[1vw] text-[1vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.time}</div>
 

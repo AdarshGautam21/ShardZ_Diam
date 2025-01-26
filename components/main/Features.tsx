@@ -102,7 +102,7 @@ function Features() {
   );
 }
 
-const FeatureCard = ({ title, description, image, large }) => (
+const FeatureCard = ({ title, description, image, large }: any) => (
   <div
     className={`relative flex ${
       large ? 'w-2/3' : 'w-1/3'
@@ -120,7 +120,7 @@ const FeatureCard = ({ title, description, image, large }) => (
   </div>
 );
 
-const SmallCard = ({ title, description, image }) => (
+const SmallCard = ({ title, description, image }: any) => (
   <div className="w-1/3 bg-[#101012] rounded-2xl p-[2vw]">
     <Image className="w-[5vw] h-[5vw]" alt={title} src={image} />
     <p className="text-white text-[1.5vw]">{title}</p>
@@ -128,7 +128,7 @@ const SmallCard = ({ title, description, image }) => (
   </div>
 );
 
-const GradientText = ({ text }) => (
+const GradientText = ({ text }:  any) => (
   <p className="bg-gradient-to-t from-[#28cdffc7] to-[#33C1EE] text-transparent font-extrabold bg-clip-text text-[2vw]">
     {text}
   </p>
