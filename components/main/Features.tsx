@@ -10,7 +10,9 @@ import img from '@/public/images/img.png';
 import right from '@/public/images/bigright.png';
 import rightrectangle from '@/public/images/Rectangle 4.png';
 import diam from '@/public/images/diam_logo.png';
+import wd from '@/public/images/wdLogo.png'
 import { Button } from '../ui/button';
+
 
 function Features() {
   return (
@@ -95,7 +97,10 @@ function Features() {
           <h2 className="font-extrabold text-white text-[2.5vw] sm:text-[2vw] md:text-[1.5vw]">
             PARTNERS
           </h2>
+          <div className='flex flex-row'>
           <Image src={diam} alt="Partners" width={80} height={80} />
+          <Image src={wd} alt="Partners" width={80} height={80} />
+          </div>
         </div>
       </div>
     </div>
