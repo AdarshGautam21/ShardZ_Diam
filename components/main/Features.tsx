@@ -94,7 +94,7 @@ function Features() {
 
         {/* Partners Section */}
         <div className="flex flex-col items-center mt-60">
-          <h2 className="font-extrabold text-white text-[2.5vw] sm:text-[2vw] md:text-[1.5vw]">
+          <h2 className="font-extrabold text-white text-[2.5vw] sm:text-[2vw] md:text-[1.5vw] mb-5">
             PARTNERS
           </h2>
           <div className='flex flex-row'>
