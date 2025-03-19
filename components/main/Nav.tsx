@@ -24,6 +24,7 @@ import thumb2 from '@/public/images/Image2.png'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
 import { ethers, Provider } from 'ethers';
+
 declare var ethereum: any;
 
 function Nav(){
@@ -35,6 +36,37 @@ function Nav(){
   const [provider, setProvider] = useState('')
   const [contract, setContract] = useState('')
   const [accountAddress, setAccountAddress] = useState<Provider | {}>({});
+  const [balance, setBalance] = useState('')
+
+  const connectWalletDiam = async () => {
+    if (typeof (window as any).diam !== 'undefined') {
+        try {
+            console.log("Attempting to connect...");
+
+            const result = await (window as any).diam.connect();
+
+            console.log("Connect result:", result);
+
+            // Extract the public key from the result
+            const publicKeyData = result?.message?.data?.[0];
+            if (publicKeyData && publicKeyData.diamPublicKey) {
+                console.log(`Public key: ${publicKeyData.diamPublicKey}`);
+            } else {
+                console.error("Diam PublicKey not found.");
+            }
+
+            setIsConnected(true);
+            setBalance(result);
+        } catch (error) {
+            console.error("Error connecting wallet:", error);
+            setIsConnected(false);
+        }
+    } else {
+        console.error("Diam wallet not found.");
+        setIsConnected(false);
+    }
+};
+
 
 
     useEffect(() => {
@@ -154,15 +186,18 @@ function Nav(){
                 <div className='flex items-center space-x-2' >
                 
                     <Image src={video} className=' w-[7vw] sm:w-[4vw] md:hidden'alt='' />
-                    <Image src={coin} className=' w-[7vw] sm:w-[4vw] ' alt='' />
+
+                    <Image onClick={() => {
+                      console.log(balance)
+                    }} src={coin} className=' w-[7vw] sm:w-[4vw] ' alt='' />
                 
 
                     <div className='relative ' >
-              <Link href='/SwappingPage'>
+              {/* <Link href='/SwappingPage'> */}
                         <p className='text-white press-start-2p-text text-[4vw] md:text-[1.5vw]' >120</p>
                         {/* <AlertCircle className='absolute top-[0vw] right-[0vw] w-[1vw] text-white' /> */}
                         
-                </Link>
+                {/* </Link> */}
                     </div>
                 </div>
 
@@ -213,7 +248,7 @@ function Nav(){
                     
                 ):(
                     <div className='bg-white rounded-full h-[7vw] sm:h-[5vw] md:h-[3vw] flex justify-center items-center  ' >
-                    <Button className='  rounded-full px-[1vw] py-0 text-center md:rounded-[2vw] text-[3vw]  sm:text-[2vw] md:text-[1vw] ' variant="secondary" onClick={connectWallet}>Connect Wallet</Button>
+                    <Button className='  rounded-full px-[1vw] py-0 text-center md:rounded-[2vw] text-[3vw]  sm:text-[2vw] md:text-[1vw] ' variant="secondary" onClick={() => connectWalletDiam()}>Connect Wallet</Button>
                 </div>
                 )}
 
