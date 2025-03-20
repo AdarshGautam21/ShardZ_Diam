@@ -38,34 +38,60 @@ function Nav(){
   const [accountAddress, setAccountAddress] = useState<Provider | {}>({});
   const [balance, setBalance] = useState('')
 
-  const connectWalletDiam = async () => {
-    if (typeof (window as any).diam !== 'undefined') {
-        try {
-            console.log("Attempting to connect...");
+//   const connectWalletDiam = async () => {
+//     if (typeof (window as any).diam !== 'undefined') {
+//         try {
+//             console.log("Attempting to connect...");
 
-            const result = await (window as any).diam.connect();
+//             const result = await (window as any).diam.connect();
+            
+//             console.log("Connect result:", result);
 
-            console.log("Connect result:", result);
+//             // Extract the public key from the result
+//             const publicKeyData = result?.message?.data?.[0];
+//             if (publicKeyData && publicKeyData.diamPublicKey) {
+//                 console.log(`Public key: ${publicKeyData.diamPublicKey}`);
+//             } else {
+//                 console.error("Diam PublicKey not found.");
+//             }
 
-            // Extract the public key from the result
-            const publicKeyData = result?.message?.data?.[0];
-            if (publicKeyData && publicKeyData.diamPublicKey) {
-                console.log(`Public key: ${publicKeyData.diamPublicKey}`);
-            } else {
-                console.error("Diam PublicKey not found.");
-            }
+//             setIsConnected(true);
+//             setBalance(result);
+//         } catch (error) {
+//             console.error("Error connecting wallet:", error);
+//             setIsConnected(false);
+//         }
+//     } else {
+//         console.error("Diam wallet not found.");
+//         setIsConnected(false);
+//     }
+// };
 
-            setIsConnected(true);
-            setBalance(result);
-        } catch (error) {
-            console.error("Error connecting wallet:", error);
-            setIsConnected(false);
-        }
+
+
+const connectWalletDiam = async () => {
+  console.log((window as any).diam);
+  (window as any).diam
+  .connect()
+  .then((result:any) => {
+    console.log("Connect result:", result);
+
+    // Extract the public key from the result
+    const publicKeyData = result.message?.data?.[0];
+    if (publicKeyData && publicKeyData.diamPublicKey) {
+      console.log(`public key: ${publicKeyData.diamPublicKey}`);
     } else {
-        console.error("Diam wallet not found.");
-        setIsConnected(false);
+      console.error("diam PublicKey not found.");
     }
+  })
+  .catch((error: any) => {
+    console.error("Error connecting wallet:", error);
+  });
 };
+
+
+
+
 
 
 
@@ -188,7 +214,8 @@ function Nav(){
                     <Image src={video} className=' w-[7vw] sm:w-[4vw] md:hidden'alt='' />
 
                     <Image onClick={() => {
-                      console.log(balance)
+                      console.log(balance);
+                      console.log((window as any).diam);
                     }} src={coin} className=' w-[7vw] sm:w-[4vw] ' alt='' />
                 
 
