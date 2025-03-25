@@ -36,7 +36,7 @@ function Nav(){
   const [provider, setProvider] = useState('')
   const [contract, setContract] = useState('')
   const [accountAddress, setAccountAddress] = useState<Provider | {}>({});
-  const [balance, setBalance] = useState('')
+  const [wallet, setWallet] = useState()
 
 //   const connectWalletDiam = async () => {
 //     if (typeof (window as any).diam !== 'undefined') {
@@ -83,6 +83,9 @@ const connectWalletDiam = async () => {
     } else {
       console.error("diam PublicKey not found.");
     }
+
+    setIsConnected(true);
+    setWallet(result);
   })
   .catch((error: any) => {
     console.error("Error connecting wallet:", error);
@@ -214,8 +217,7 @@ const connectWalletDiam = async () => {
                     <Image src={video} className=' w-[7vw] sm:w-[4vw] md:hidden'alt='' />
 
                     <Image onClick={() => {
-                      console.log(balance);
-                      console.log((window as any).diam);
+                      console.log(wallet)
                     }} src={coin} className=' w-[7vw] sm:w-[4vw] ' alt='' />
                 
 
