@@ -40,9 +40,7 @@ function Mint({ cid, assetAddress }: Props) {
     setResponseMessage(""); // Clear previous messages
 
     try {
-// Removed server-side code. Ensure backend logic is implemented in a separate file.
-
-      const response = await fetch("YOUR_API_ENDPOINT", {
+      const response = await fetch("http://localhost:3000/Publish/Mint", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
