@@ -18,4 +18,4 @@ export const abi = {
     Asset: AssetABI
 }
 
-export const lighthouseAPI = '9b7a2c41.6bda5c574a8149148a7a184d6a635d7f'
+export const lighthouseAPI = 'edf09a91.36418496da29464da5a6feb33c4bd2a0'

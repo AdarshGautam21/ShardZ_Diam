@@ -10,7 +10,6 @@ import 'slick-carousel/slick/slick-theme.css';
 // import logo from '@/public/images/logo.png';
 import Sidemenu from '@/components/main/Sidemenu'
 import Nav from '@/components/main/Nav'
-import Lottie, {LottieProps} from 'react-lottie';
 import uploadAnimationData from '@/public/animation/uploading.json'
 import successfulAnimation from '@/public/animation/successful.json'
 import Link from 'next/link';
@@ -52,6 +51,7 @@ import { useRouter } from 'next/router';
 import { log } from 'console';
 import CreateContent from '@/utils/functions/CreateContent';
 import { lighthouseAPI } from '@/utils/config'
+import Diam from '@/utils/functions/uploadVideo'
 
 
 // import {ethers} from 'ethers'
@@ -103,26 +103,6 @@ const UploadPage: React.FC = () => {
 
 
 
-useEffect(() => {
-  const initializeProvider = async () => {
-      try {
-          // const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const provider = new ethers.BrowserProvider((window as any).ethereum);
-          const signer = await provider.getSigner(); 
-          setSigner(signer);
-          console.log(signer);
-          const shardZNFTContract = new ethers.Contract("0x23Ef0e4f4031c2d0DeeB4C1f7b8fe097a8276342", contractABI, signer);
-          setContract(shardZNFTContract);
-      } catch (error) {
-          console.error("Error initializing provider:", error);
-      }
-  };
-
-  initializeProvider();
-}, []);
-
-
-
   interface NFTCreatedEvent {
     event: string; // Should be "NFTCreated"
     args: {
@@ -133,19 +113,8 @@ useEffect(() => {
 
   async function createNFT(signer: JsonRpcSigner, cid: string, name: string): Promise<any> {
     try {
-      console.log(contract);
-      const transaction = await contract.createNFT(signer, cid);
-      const receipt = await transaction.wait();
 
-      const tx = CreateContent(name, cid )
-      const result = await tx;
-      setUploading(false);
-
-      setSuccessful(true);
       
-      setTimeout(() => {
-        router.push('/VideoPage'); // Redirect to another page
-    }, 5000);
     }
     catch (error){
       console.log("Error in creating NFT", error)
@@ -181,28 +150,11 @@ useEffect(() => {
       // const address = await signer.getAddress();
       // console.log(signer);
       
-    const signerr = await signer;
-    // const address = signerr.getAddress();
-    console.log(signerr.address);
-    // console.log(address);
-
-    // const shardZNFTContract = new ethers.Contract("0x0aB61D5cdc5091326a796D48eEE6a124f8ea8C81", contractABI, signerr);
-    // setContract(shardZNFTContract);
-    
-    
-    // const nft = await axios.post('http://192.168.1.34:8080/api/contract/createNFT', {signer: signerr.address, cid: output.data.Hash})
-    const nft = await createNFT(signerr.address , output.data.Hash, form.watch('Title'))
-
-    // setUploading(false);
-
-    //   setSuccessful(true);
-      
-    //   setTimeout(() => {
-    //     router.push('/VideoPage'); // Redirect to another page
-    // }, 5000);
-
+    const diamres = await Diam();
+    setUploading(false);
     } catch (error) {
       console.error('Error uploading file:', error);
+      setUploading(false);
     }
   };
   
@@ -282,12 +234,12 @@ useEffect(() => {
 
         {uploading && (
                 <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10000 }}>
-                    <Lottie options={{ animationData: uploadAnimationData }} height={300} width={300} />
+                    <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>
                 </div>
             )}
           {successful && (
                 <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10000 }}>
-                    <Lottie options={{ animationData: successfulAnimation, loop: false }} height={300} width={300} speed= {0.5}/>
+                    <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>
                 </div>
             )}
         
