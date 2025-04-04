@@ -24,6 +24,7 @@ import Link from 'next/link';
 import Nav from '@/components/main/Nav'
 import Sidemenu from '@/components/main/Sidemenu';
 import VideoSection from '../components/ui/videos';
+import {ConnectionProvider} from '@/context/ConnectContext';
 
 
 function VideoPage() {
@@ -118,6 +119,7 @@ function VideoPage() {
       
 
   return (
+    <ConnectionProvider>
     <div className='bg-[#0D0D0E]' style={{
         backgroundImage: `url(${ellipse.src})`,
         width: '100%',
@@ -189,6 +191,7 @@ function VideoPage() {
         </div>
         
     </div>
+    </ConnectionProvider>
   )
 }
 

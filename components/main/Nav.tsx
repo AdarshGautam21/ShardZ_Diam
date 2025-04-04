@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -14,10 +14,12 @@ import profile from "@/public/images/profile.png";
 import video from "@/public/images/videoUp.png";
 import coin from "@/public/images/coin.png";
 import { Menu, MenuIcon } from "lucide-react";
+import { useConnect } from "@/context/ConnectContext";
 
 function Nav() {
+  const {connect, disconnect, publicKey} = useConnect();
   const [isConnected, setIsConnected] = useState(false);
-  const [publicKey, setPublicKey] = useState<string | null>(null);
+  const [diamPublicKey, setDiamPublicKey] = useState<string | null>(null);
 
   // Function to connect to Diam Wallet
   const connectWalletDiam = async () => {
@@ -29,11 +31,14 @@ function Nav() {
         console.log("Connect result:", result);
 
         // Extract the public key from the result
-        const publicKeyData = result?.message?.data?.[0];
-        if (publicKeyData && publicKeyData.diamPublicKey) {
-          console.log(`Public key: ${publicKeyData.diamPublicKey}`);
-          setPublicKey(publicKeyData.diamPublicKey);
+        const diamPublicKey = result?.message?.data?.[0];
+        console.log("Diam PublicKey:", diamPublicKey);
+        connect(diamPublicKey.diamPublicKey);
+        if (diamPublicKey && diamPublicKey.diamPublicKey) {
+          console.log(`Public key: ${diamPublicKey.diamPublicKey}`);
+          // setDiamPublicKey(diamPublicKey.diamPublicKey);
           setIsConnected(true);
+          
         } else {
           console.error("Diam PublicKey not found.");
         }
@@ -46,6 +51,21 @@ function Nav() {
       setIsConnected(false);
     }
   };
+
+
+  const disconnectWallet = async () => {
+    const result = await (window as any).diam.disconnect();
+    disconnect();
+    setIsConnected(false);
+  }
+
+  useEffect(() => {
+    if (publicKey) {
+      console.log("Public key from context:", publicKey);
+      setDiamPublicKey(publicKey);
+      setIsConnected(true);
+    }
+  }, [publicKey]);
 
   return (
     <div>
@@ -157,7 +177,9 @@ function Nav() {
                       alt="profile"
                     />
                     <p className="text-[0.7vw] text-white">
-                      {publicKey ? publicKey : "User"}
+                    {publicKey && diamPublicKey && typeof diamPublicKey === "string" 
+                    ? publicKey?.slice(0, 3) + "..." + publicKey?.slice(-3) 
+                    : "User"}
                     </p>
                     <MenuIcon className="text-white w-[1vw] h-[1vw] cursor-pointer hover:bg-[#33c2ee50] rounded-[0.2vw]" />
                   </div>
@@ -174,6 +196,9 @@ function Nav() {
                     Creator Studio
                   </DropdownMenuItem>
                 </Link>
+                  <DropdownMenuItem className="text-white cursor-pointer" onClick={disconnectWallet}>
+                    Disconnect Wallet
+                  </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
