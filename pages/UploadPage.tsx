@@ -51,7 +51,7 @@ import { useRouter } from 'next/router';
 import { log } from 'console';
 import CreateContent from '@/utils/functions/CreateContent';
 import { lighthouseAPI } from '@/utils/config'
-import Diam from '@/utils/functions/uploadVideo'
+import issueAsset from '@/utils/functions/uploadVideo'
 
 
 // import {ethers} from 'ethers'
@@ -131,9 +131,6 @@ const UploadPage: React.FC = () => {
 
     try {
       setUploading(true);
-
-      // const thumbnailOutput = await lighthouse.upload( [thumbnail], '634d38b8.9e4eefb3ff5940b78276e56b7403a967');
-      // console.log(thumbnail);27423fd5.3c405e09d4dc4b1e8b5e78ff342ba5c2
       const thumbnailOutput = await lighthouse.upload( [thumbnail], lighthouseAPI);
       
 
@@ -147,10 +144,9 @@ const UploadPage: React.FC = () => {
       console.log('File Status:', output);
       console.log('Visit at https://gateway.lighthouse.storage/ipfs/' + output.data.Hash);
       
-      // const address = await signer.getAddress();
-      // console.log(signer);
-      
-    const diamres = await Diam();
+    const diamres = await issueAsset();
+    console.log(diamres);
+    
     setUploading(false);
     } catch (error) {
       console.error('Error uploading file:', error);

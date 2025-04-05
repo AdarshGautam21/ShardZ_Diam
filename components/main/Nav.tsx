@@ -38,7 +38,11 @@ function Nav() {
           console.log(`Public key: ${diamPublicKey.diamPublicKey}`);
           // setDiamPublicKey(diamPublicKey.diamPublicKey);
           setIsConnected(true);
-          
+
+
+          console.log((window as any).diam);
+  
+  
         } else {
           console.error("Diam PublicKey not found.");
         }
