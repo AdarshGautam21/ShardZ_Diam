@@ -132,9 +132,13 @@ const UploadPage: React.FC = () => {
     try {
       setUploading(true);
       const thumbnailOutput = await lighthouse.upload( [thumbnail], lighthouseAPI);
+      console.log("aagya");
+      
       
 
       const updatedFileName = form.watch('Title') + " " + thumbnailOutput.data.Hash;
+      console.log("aagya");
+
       const updatedFile = selectedVideo ? new File([selectedVideo], updatedFileName, { type: selectedVideo.type }) : null;
       console.log(updatedFile);
       
