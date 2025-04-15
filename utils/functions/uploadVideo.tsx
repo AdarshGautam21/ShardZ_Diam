@@ -16,7 +16,10 @@ const issueAsset = async () => {
   try {
     console.log("hello");
 
-    const astroDollar = await new DiamSdk.Asset("ASSETT", publicKey);
+    console.log(publicKey);
+    
+
+    const astroDollar = await new DiamSdk.Asset("ASSETTTT", publicKey);
     console.log(astroDollar);
 
     const server = await new DiamSdk.Aurora.Server(
