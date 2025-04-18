@@ -34,9 +34,9 @@ function Nav() {
         // Extract the public key from the result
         const diamPublicKey = result?.message?.data?.[0];
         console.log("Diam PublicKey:", diamPublicKey);
-        connect(diamPublicKey.diamPublicKey);
-        if (diamPublicKey && diamPublicKey.diamPublicKey) {
-          console.log(`Public key: ${diamPublicKey.diamPublicKey}`);
+        connect(diamPublicKey.publicKey);
+        if (diamPublicKey && diamPublicKey.publicKey) {
+          console.log(`Public key: ${diamPublicKey.publicKey}`);
           // setDiamPublicKey(diamPublicKey.diamPublicKey);
           setIsConnected(true);
 

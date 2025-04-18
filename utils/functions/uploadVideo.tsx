@@ -17,50 +17,85 @@ const issueAsset = async () => {
     console.log("hello");
 
     console.log(publicKey);
+
+    const issuer = DiamSdk.Keypair.random()
+    console.log(issuer);
+    console.log(issuer.publicKey());
+    
     
 
-    const astroDollar = await new DiamSdk.Asset("ASSETTTT", publicKey);
-    console.log(astroDollar);
+    const newAsset = await new DiamSdk.Asset("FuckU", issuer.publicKey());
+    console.log(newAsset);
 
     const server = await new DiamSdk.Aurora.Server(
       "https://diamtestnet.diamcircle.io/"
     );
 
-  //  const key = nacl.sign.keyPair.fromSeed(Uint8Array.from(obj._secretKey.data));
-  //  console.log(key);
-
-   const hex = Buffer.from(obj._secretSeed.data).toString('hex');
-console.log('Hex:', hex);
+//    const hex = Buffer.from(obj._secretSeed.data).toString('hex');
+// console.log('Hex:', hex);
    
 
     const distributorKeypair = DiamSdk.Keypair.fromSecret(secret);
     console.log(distributorKeypair)    
     
-    const account = await server.loadAccount(distributorKeypair.publicKey());
+    const account = await server.loadAccount(publicKey);
     console.log(account);
+
+    const numOperations = 4;
+    const totalFee = ((BASE_FEE * numOperations) / Math.pow(10, 7)).toString();
 
     const transaction = new DiamSdk.TransactionBuilder(account, {
       fee: DiamSdk.BASE_FEE,
-      networkPassphrase: DiamSdk.Networks.TESTNET,
+      networkPassphrase: "Diamante Testnet 2024",
     })
-
+    .addOperation(
+      Operation.payment({
+        destination: publicKey,
+        asset: DiamSdk.Asset.native(),
+        amount: totalFee,
+        source: publicKey,
+      })
+    )
+    .addOperation(
+      Operation.createAccount({
+        destination: issuer.publicKey(),
+        startingBalance: "0.0001",
+        source: publicKey,
+      })
+    )
       .addOperation(
         DiamSdk.Operation.changeTrust({
-          asset: astroDollar,
-          limit: "1000",
-          source: distributorKeypair.publicKey(),
+          asset: newAsset,
+          limit: "100",
+          source: publicKey,
+        })
+      )
+      .addOperation(
+        Operation.payment({
+          destination: publicKey,
+          source: issuer.publicKey(),
+          asset: newAsset,
+          amount: "100",
         })
       )
       .setTimeout(100)
       .build();
-      console.log(transaction);
-      
 
-      const res =  await transaction.sign(distributorKeypair);
-      const result = await server.submitTransaction(transaction)
+      transaction.sign(issuer);
+
+      const xdr = transaction.toXDR();
+      console.log(transaction);
+      await (window as any).diam
+  .sign(
+    xdr,
+    true,
+    "Diamante Testnet 2024"
+  )
+  .then((res: any) => {
+    console.log(res)
+  return res;
+});
       
-        
-      return result;
   } catch (error) {
     console.error("Error in Diam function:", error);
     return error;
