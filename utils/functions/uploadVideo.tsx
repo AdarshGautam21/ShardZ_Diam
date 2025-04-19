@@ -12,7 +12,7 @@ const publicKey = Cookies.get("publicKey");
 
 
 
-const issueAsset = async () => {
+const issueAsset = async (cid: any) => {
   try {
     console.log("hello");
 
@@ -33,16 +33,16 @@ const issueAsset = async () => {
 
 //    const hex = Buffer.from(obj._secretSeed.data).toString('hex');
 // console.log('Hex:', hex);
-   
-
-    const distributorKeypair = DiamSdk.Keypair.fromSecret(secret);
-    console.log(distributorKeypair)    
+      
     
     const account = await server.loadAccount(publicKey);
     console.log(account);
 
     const numOperations = 4;
     const totalFee = ((BASE_FEE * numOperations) / Math.pow(10, 7)).toString();
+
+    console.log(cid);
+    
 
     const transaction = new DiamSdk.TransactionBuilder(account, {
       fee: DiamSdk.BASE_FEE,
@@ -68,6 +68,12 @@ const issueAsset = async () => {
           asset: newAsset,
           limit: "100",
           source: publicKey,
+        })
+      )
+      .addOperation(
+        DiamSdk.Operation.manageData({
+          name: "CID", // The name of the data entry
+          value: cid, // The value to store
         })
       )
       .addOperation(
