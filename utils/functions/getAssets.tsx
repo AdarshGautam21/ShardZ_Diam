@@ -23,8 +23,14 @@ const getAsset = async () => {
     const distributorKeypair = DiamSdk.Keypair.fromSecret(secret);
     console.log(distributorKeypair)    
     
-    const assets = await server.assets().forIssuer('GAQLHQWUAZONQM7WF7FUJ5TJ5LWF4SNY7ED6OIW7CPOODRQ5DM7WZ4CF').call();
+    const assets = await server.assets().forIssuer(publicKey).call();
     console.log(assets);
+
+    // const res = await fetch(`https://diamtestnet.diamcircle.io/accounts/${publicKey}`)
+    const res = await fetch(`https://diamtestnet.diamcircle.io/accounts/GDI4MPQXKCWGLYWCJ4H7OSTKBWGKWGTD3RNJUCR463TO76MWJJWJ4K6J`)
+    const myAssets =await res.json()
+    console.log(myAssets);
+    
 
     
   } catch (error) {

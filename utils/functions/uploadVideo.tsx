@@ -37,7 +37,6 @@ const issueAsset = async (cid: any) => {
     
     const account = await server.loadAccount(publicKey);
     console.log(account);
-
     const numOperations = 4;
     const totalFee = ((BASE_FEE * numOperations) / Math.pow(10, 7)).toString();
 
@@ -63,6 +62,13 @@ const issueAsset = async (cid: any) => {
         source: publicKey,
       })
     )
+    .addOperation(
+      DiamSdk.Operation.manageData({
+        source: issuer.publicKey(), // The source account for the operation
+        name: "videoCid", // The name of the data entry
+        value: cid, // The value to store
+      })
+    )
       .addOperation(
         DiamSdk.Operation.changeTrust({
           asset: newAsset,
@@ -71,17 +77,17 @@ const issueAsset = async (cid: any) => {
         })
       )
       .addOperation(
-        DiamSdk.Operation.manageData({
-          name: "CID", // The name of the data entry
-          value: cid, // The value to store
-        })
-      )
-      .addOperation(
         Operation.payment({
           destination: publicKey,
           source: issuer.publicKey(),
           asset: newAsset,
           amount: "100",
+        })
+      )
+      .addOperation(
+        Operation.setOptions({
+          source: issuer.publicKey(),
+          masterWeight: 0,
         })
       )
       .setTimeout(100)
