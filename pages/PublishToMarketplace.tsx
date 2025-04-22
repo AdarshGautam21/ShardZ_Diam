@@ -106,30 +106,30 @@ useEffect(() => {
     if (video){
       setVideoInfo(JSON.parse(decodeURIComponent(video as string)));
       }
-      console.log(videoInfo);
-      console.log(cid);
-      const result = getAssetAddress(cid);
-      const AssetAddress = await result;
-      const sup = getTotalSupply(AssetAddress)
-      const supply = await sup;
-      setTotalSupply(supply);
-      console.log(totalSupply);
+      // console.log(videoInfo);
+      // console.log(cid);
+      // const result = getAssetAddress(cid);
+      // const AssetAddress = await result;
+      // const sup = getTotalSupply(AssetAddress)
+      // const supply = await sup;
+      // setTotalSupply(supply);
+      // console.log(totalSupply);
       
-      console.log(AssetAddress);
-      setAssetAddress(AssetAddress);
+      // console.log(AssetAddress);
+      // setAssetAddress(AssetAddress);
       
-      const initializeProvider = async () => {
-          try {
-              const provider = new ethers.BrowserProvider((window as any).ethereum);
-              const signer = await provider.getSigner();
-              setSigner(signer);
-              console.log(signer);
-              const shardZMarketContract = new ethers.Contract(contracts.AssetMarket, contractABI, signer);
-              setContract(shardZMarketContract);
-          } catch (error) {
-              console.error("Error initializing provider:", error);
-          }
-      };
+      // const initializeProvider = async () => {
+      //     try {
+      //         const provider = new ethers.BrowserProvider((window as any).ethereum);
+      //         const signer = await provider.getSigner();
+      //         setSigner(signer);
+      //         console.log(signer);
+      //         const shardZMarketContract = new ethers.Contract(contracts.AssetMarket, contractABI, signer);
+      //         setContract(shardZMarketContract);
+      //     } catch (error) {
+      //         console.error("Error initializing provider:", error);
+      //     }
+      // };
     
       // initializeProvider();
     
@@ -365,8 +365,8 @@ function onSubmit(values: z.infer<typeof formSchema>) {
 
       </div>
 
-      {totalSupply>0 ? 
-      (
+      {/* {totalSupply>0 ? 
+      ( */}
         <div>
           <div>
             Total Supply:
@@ -374,9 +374,9 @@ function onSubmit(values: z.infer<typeof formSchema>) {
           </div>
       <Publish cid={cid} assetAddress={assetAddress}/>
       </div>
-    ) : (
+    {/* ) : (
       <Mint cid={cid} assetAddress={assetAddress}/>
-      ) }
+      ) } */}
 
 
     {/* <Mint cid={cid} assetAddress={assetAddress}/>

@@ -15,6 +15,8 @@ const publicKey = Cookies.get("publicKey");
 const issueAsset = async (cid: any) => {
   try {
     console.log("hello");
+    console.log(cid);
+    
 
     console.log(publicKey);
 
@@ -24,7 +26,7 @@ const issueAsset = async (cid: any) => {
     
     
 
-    const newAsset = await new DiamSdk.Asset("FuckU", issuer.publicKey());
+    const newAsset = await new DiamSdk.Asset("Newasset", issuer.publicKey());
     console.log(newAsset);
 
     const server = await new DiamSdk.Aurora.Server(
@@ -66,7 +68,7 @@ const issueAsset = async (cid: any) => {
       DiamSdk.Operation.manageData({
         source: issuer.publicKey(), // The source account for the operation
         name: "videoCid", // The name of the data entry
-        value: cid, // The value to store
+        value: "value", // The value to store
       })
     )
       .addOperation(

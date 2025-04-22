@@ -16,6 +16,7 @@ import {ethers} from 'ethers'
 import { Button } from '../ui/button';
 import SkeletonLoading from './SkeletonLoading';
 import { lighthouseAPI } from '@/utils/config';
+import getAsset from '@/utils/functions/getAssets';
 
 const Content = () => {
   const videos = [
@@ -99,7 +100,34 @@ const Content = () => {
       }
     };
 
-    fetchData();
+    const fetch = async () => {
+      setLoading(true);
+      const res: any = await getAsset();
+      // console.log(res);
+      setAllVideos(await res);
+      setLoading(false);
+      console.log(allVideos);
+      
+    }
+    // fetch();
+
+    // fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetch = async () => {
+      setLoading(true);
+      try {
+        const res: any = await getAsset();
+        setAllVideos(res); // no need to await res again
+      } catch (error) {
+        console.error('Failed to fetch asset:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetch();
   }, []);
 
 
@@ -119,7 +147,7 @@ const Content = () => {
 
 <div className="mx-auto space-y-[2vw] hidden md:block ">
       
-      {allVideos.map((video,index) => (
+      {allVideos?.map((video,index) => (
         <Link href={`/PublishToMarketplace?video=${encodeURIComponent(JSON.stringify(video))}&cid=${video.cid}`} key={index} >
             <div className='bg-gradient-to-r from-[#fff0] via-[#ffffff2d] to-cyan-400 p-[0.1vw] rounded-[0.5vw] mb-[0.5vw]' >
               
@@ -183,7 +211,7 @@ const Content = () => {
     </div>
     <div className="mx-[2vw] space-y-[2vw]  md:hidden ">
     
-      {allVideos.map((video, index) => (
+      {allVideos?.map((video, index) => (
         <Link href='/PublishToMarketplace' key={index}>
           <div className='bg-gradient-to-r from-[#fff0] via-[#ffffff2d] to-cyan-400 p-[0.2vw] rounded-[1vw]'>
               
