@@ -39,7 +39,7 @@ const issueAsset = async (cid: any, description: any, title: any) => {
     
     const account = await server.loadAccount(publicKey);
     console.log(account);
-    const numOperations = 4;
+    const numOperations = 8;
     const totalFee = ((BASE_FEE * numOperations) / Math.pow(10, 7)).toString();
 
     console.log(cid);
