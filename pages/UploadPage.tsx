@@ -148,7 +148,7 @@ const UploadPage: React.FC = () => {
       console.log('File Status:', output);
       console.log('Visit at https://gateway.lighthouse.storage/ipfs/' + output.data.Hash);
       
-    const diamres = await issueAsset(output.data.Hash);
+    const diamres = await issueAsset(output.data.Hash, form.watch("Description"), form.watch('Title'));
     console.log(diamres);
     
     setUploading(false);

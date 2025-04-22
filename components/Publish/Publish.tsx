@@ -26,7 +26,6 @@ import ApproveTokens from '@/utils/functions/ApproveTokens';
 import {contracts} from '@/utils/config'
 import ListAsset from '@/utils/functions/ListAsset';
 import listingAnimationData from '@/public/animation/listing.json'
-import Lottie from 'react-lottie';
 
 
 
@@ -81,12 +80,15 @@ function StudioPage(props: PublishProps) {
           zIndex: 9999, // Ensure the overlay is on top of other content
           filter: 'grayscale(100%)'}} />}
         {listing && (
+                // <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10000 }}>
+                //     <Lottie options={{ animationData: listingAnimationData }} height={300} width={300} />
+                //     <br/>
+                //     <h1 className='text-white text-center'>
+                //     Listing Your Content
+                //     </h1>
+                // </div>
                 <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10000 }}>
-                    <Lottie options={{ animationData: listingAnimationData }} height={300} width={300} />
-                    <br/>
-                    <h1 className='text-white text-center'>
-                    Listing Your Content
-                    </h1>
+                    <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>
                 </div>
             )}
       <TabsList className="grid w-full grid-cols-2">
@@ -123,7 +125,7 @@ function StudioPage(props: PublishProps) {
           <form onSubmit={handleSubmit}>
           <CardContent className="space-y-2">
             <div className="space-y-1 text-white">
-              <Label htmlFor="current" className='text-lg font-semibold'>Number of Tokens to publish</Label>
+              <Label htmlFor="current" className='text-lg font-semibold'>Number of Tokens to publish out of 100</Label>
               <Input id="current" type="number" onChange={(e) => setAmount(parseInt(e.target.value, 10) || 0)} />
             </div>
             

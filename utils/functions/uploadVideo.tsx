@@ -12,7 +12,7 @@ const publicKey = Cookies.get("publicKey");
 
 
 
-const issueAsset = async (cid: any) => {
+const issueAsset = async (cid: any, description: any, title: any) => {
   try {
     console.log("hello");
     console.log(cid);
@@ -68,7 +68,21 @@ const issueAsset = async (cid: any) => {
       DiamSdk.Operation.manageData({
         source: issuer.publicKey(), // The source account for the operation
         name: "videoCid", // The name of the data entry
-        value: "value", // The value to store
+        value: cid, // The value to store
+      })
+    )
+    .addOperation(
+      DiamSdk.Operation.manageData({
+        source: issuer.publicKey(), // The source account for the operation
+        name: "title", // The name of the data entry
+        value: title, // The value to store
+      })
+    )
+    .addOperation(
+      DiamSdk.Operation.manageData({
+        source: issuer.publicKey(), // The source account for the operation
+        name: "description", // The name of the data entry
+        value: description, // The value to store
       })
     )
       .addOperation(
