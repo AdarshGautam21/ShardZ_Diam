@@ -33,6 +33,7 @@ const Content = () => {
 
 
   interface FileObject {
+    assetIssuer: string;
     publicKey: string;
     fileName: string;
     mimeType: string;
@@ -86,7 +87,7 @@ const Content = () => {
           return outputList.includes(file.cid);
         });
 
-          setAllVideos(filteredFiles);
+          // setAllVideos(filteredFiles);
           console.log(filteredFiles);
           setLoading(false);
           
@@ -148,7 +149,7 @@ const Content = () => {
 <div className="mx-auto space-y-[2vw] hidden md:block ">
       
       {allVideos?.map((video,index) => (
-        <Link href={`/PublishToMarketplace?video=${encodeURIComponent(JSON.stringify(video))}&cid=${video.cid}`} key={index} >
+        <Link href={`/PublishToMarketplace?issuer=${video.assetIssuer}`} key={index} >
             <div className='bg-gradient-to-r from-[#fff0] via-[#ffffff2d] to-cyan-400 p-[0.1vw] rounded-[0.5vw] mb-[0.5vw]' >
               
               <div className="bg-black flex items-center p-[0.5vw] text-white rounded-[0.5vw]">

@@ -28,6 +28,7 @@ import Publish from '@/components/Publish/Publish'
 import getAssetAddress from '@/utils/functions/getAddress';
 import Mint from '@/components/Publish/Mint'
 import getTotalSupply from '@/utils/functions/getTotalSupply';
+import getVideoDetails from '@/utils/functions/getVideoDetails';
 
 // import {ethers} from 'ethers'
 
@@ -55,20 +56,23 @@ const UploadPage =() => {
     setSelectedVideo(acceptedFiles[0]);
   }, []);
   const [minted, setMinted] = useState(false)
+  const [title, setTitle] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [thumbnail, setThumbnail] = useState<string>('')
   // const [amount, setAmount] = useState<number>(0)
 
 
 
-  const { video, cid } = router.query;
+  const { issuer } = router.query;
   
-      const [videoInfo, setVideoInfo] = useState<any>(null)
-      let VideoInfo;
-      if (video) {
-        VideoInfo = JSON.parse(decodeURIComponent(video as string));
+      const [videoInformation, setVideoInformation] = useState<any>(null)
+      // let VideoInfo;
+      // if (video) {
+      //   VideoInfo = JSON.parse(decodeURIComponent(video as string));
         
-        console.log(videoInfo);
+      //   console.log(videoInfo);
         
-      }
+      // }
 
 
 
@@ -95,43 +99,26 @@ const UploadPage =() => {
     },
   });
 
-  const [signer, setSigner] = useState<any>('')
-  const [contract, setContract] = useState<any>('')
 
 
 
 
 useEffect(() => {
   (async () => {
-    if (video){
-      setVideoInfo(JSON.parse(decodeURIComponent(video as string)));
+    if (issuer){
+      const { videoInfo, thumbnailCID, title, description } = await getVideoDetails(issuer as string) as {
+        videoInfo: any;
+        thumbnailCID: string;
+        title: string;
+        description: string;
+      };
+      setVideoInformation(videoInfo.data);
+      setThumbnail(thumbnailCID); 
+      setTitle(title);
+      setDescription(description);
+      console.log(videoInformation, videoInfo);
       }
-      // console.log(videoInfo);
-      // console.log(cid);
-      // const result = getAssetAddress(cid);
-      // const AssetAddress = await result;
-      // const sup = getTotalSupply(AssetAddress)
-      // const supply = await sup;
-      // setTotalSupply(supply);
-      // console.log(totalSupply);
       
-      // console.log(AssetAddress);
-      // setAssetAddress(AssetAddress);
-      
-      // const initializeProvider = async () => {
-      //     try {
-      //         const provider = new ethers.BrowserProvider((window as any).ethereum);
-      //         const signer = await provider.getSigner();
-      //         setSigner(signer);
-      //         console.log(signer);
-      //         const shardZMarketContract = new ethers.Contract(contracts.AssetMarket, contractABI, signer);
-      //         setContract(shardZMarketContract);
-      //     } catch (error) {
-      //         console.error("Error initializing provider:", error);
-      //     }
-      // };
-    
-      // initializeProvider();
     
   })(); // Notice the immediate invocation here
 }, []);
@@ -143,7 +130,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
 
 
 
-  if(!videoInfo){
+  if(!videoInformation){
     return(
       <div className='bg-[#0D0D0E]' style={{
         backgroundImage: `url(${ellipse.src})`,
@@ -234,7 +221,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel> Title (required) </FormLabel>
                     <FormControl className='rounded-[0.5vw]' >
-                      <Input disabled className='bg-[#00000033]' {...field} value={videoInfo.fileName.substring(0, videoInfo.fileName.lastIndexOf(' '))}/>
+                      <Input disabled className='bg-[#00000033]' {...field} value={videoInformation.fileName.substring(0, videoInformation.fileName.lastIndexOf(' '))}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -247,7 +234,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel> Description </FormLabel>
                     <FormControl className='rounded-[0.5vw]' >
-                      <textarea disabled rows={10} className='w-full  p-2 bg-[#00000033] border ' {...field} />
+                      <textarea disabled rows={10} className='w-full  p-2 bg-[#00000033] border ' {...field} value={description} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -259,7 +246,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <div className='w-[25vw]' >
                     <div className='flex justify-between' >
                       <img
-                      src={`https://gateway.lighthouse.storage/ipfs/${videoInfo.fileName.substring(videoInfo.fileName.lastIndexOf(' ') + 1)}`}
+                      src={`https://gateway.lighthouse.storage/ipfs/${thumbnail}`}
                       alt="Selected Thumbnail"
                       className=" w-[10vw] max-h-32 object-cover rounded-lg  border  border-cyan-400"
                       />
@@ -284,7 +271,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
           <div>
           <div className="relative ">
             <video
-              src={`https://gateway.lighthouse.storage/ipfs/${videoInfo.cid}`}
+              src={`https://gateway.lighthouse.storage/ipfs/${videoInformation.cid}`}
               className="w-full border border-cyan-500 rounded-[0.5vw]"
               controls
             />
@@ -321,7 +308,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
           <div>
           <div className="relative ">
             <video
-              src={`https://gateway.lighthouse.storage/ipfs/${videoInfo.cid}`}
+              src={`https://gateway.lighthouse.storage/ipfs/${videoInformation.cid}`}
               className="w-full border border-cyan-500 rounded-[0.5vw]"
               controls
             />
@@ -340,7 +327,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel> Title (required) </FormLabel>
                     <FormControl className='rounded-[2vw]' >
-                      <Input className='bg-[#00000033]' {...field} disabled value={videoInfo.fileName.substring(0, videoInfo.fileName.lastIndexOf(' '))}/>
+                      <Input className='bg-[#00000033]' {...field} disabled value={videoInformation.fileName.substring(0, videoInformation.fileName.lastIndexOf(' '))}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -353,7 +340,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel> Description </FormLabel>
                     <FormControl className='rounded-[2vw]' >
-                      <textarea disabled rows={10} className='w-full  p-2 bg-[#00000033] border ' {...field} />
+                      <textarea disabled rows={10} className='w-full  p-2 bg-[#00000033] border ' {...field} value={description} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -368,11 +355,8 @@ function onSubmit(values: z.infer<typeof formSchema>) {
       {/* {totalSupply>0 ? 
       ( */}
         <div>
-          <div>
-            Total Supply:
-            <p>{totalSupply}</p>
-          </div>
-      <Publish cid={cid} assetAddress={assetAddress}/>
+
+      <Publish cid={videoInformation.cid} assetAddress={assetAddress}/>
       </div>
     {/* ) : (
       <Mint cid={cid} assetAddress={assetAddress}/>

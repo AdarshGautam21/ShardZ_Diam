@@ -43,6 +43,12 @@ const issueAsset = async (cid: any, description: any, title: any) => {
     const totalFee = ((BASE_FEE * numOperations) / Math.pow(10, 7)).toString();
 
     console.log(cid);
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const formattedDate = `${day}-${month}-${year}`;
     
 
     const transaction = new DiamSdk.TransactionBuilder(account, {
@@ -83,6 +89,13 @@ const issueAsset = async (cid: any, description: any, title: any) => {
         source: issuer.publicKey(), // The source account for the operation
         name: "description", // The name of the data entry
         value: description, // The value to store
+      })
+    )
+    .addOperation(
+      DiamSdk.Operation.manageData({
+        source: issuer.publicKey(), // The source account for the operation
+        name: "date", // The name of the data entry
+        value: formattedDate, // The value to store
       })
     )
       .addOperation(

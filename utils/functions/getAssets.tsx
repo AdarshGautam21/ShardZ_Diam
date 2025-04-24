@@ -24,6 +24,7 @@ const getAsset = async () => {
 
     // const assets = await server.assets().forIssuer(publicKey).call();
     // console.log(assets);
+    
 
     const res = await fetch(
       `https://diamtestnet.diamcircle.io/accounts/${publicKey}`
@@ -35,29 +36,51 @@ const getAsset = async () => {
     const response = await lighthouse.getUploads(lighthouseAPI);
     
 
-    for (let index = 0; index < myAssets.balances.length; index++) {
-      if (myAssets.balances[index].asset_issuer) {
-        const acc = await server.loadAccount(
-          myAssets.balances[index].asset_issuer
-        );
-        if (acc.data_attr.videoCid) {
-          console.log(acc);
+    // for (let index = 0; index < myAssets.balances.length; index++) {
+    //   if (myAssets.balances[index].asset_issuer) {
+    //     const acc = await server.loadAccount(
+    //       myAssets.balances[index].asset_issuer
+    //     );
+    //     if (acc.data_attr.videoCid) {
+    //       console.log(acc);
           
-          console.log(acc.data_attr.videoCid);
-          const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
-          cids.push(decodedValue);
-        }
+    //       console.log(acc.data_attr.videoCid);
+    //       const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
+    //       cids.push(decodedValue);
+    //     }
 
-        // const asset = await server.assets().forIssuer(myAssets.balances[index].asset_issuer).call();
-        // console.log(asset);
-      }
+    //     // const asset = await server.assets().forIssuer(myAssets.balances[index].asset_issuer).call();
+    //     // console.log(asset);
+    //   }
+    // }
+    // const filteredFiles = response.data.fileList.filter((file) => {
+    //   return cids.includes(file.cid);
+    // });
+
+    const cidIssuerMap: any = {}; // Map CID to account (acc)
+
+for (let index = 0; index < myAssets.balances.length; index++) {
+  if (myAssets.balances[index].asset_issuer) {
+    const acc = await server.loadAccount(myAssets.balances[index].asset_issuer);
+
+    if (acc.data_attr.videoCid) {
+      const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
+      cids.push(decodedValue);
+      cidIssuerMap[decodedValue] = acc.account_id; // map cid to its account
     }
-    const filteredFiles = response.data.fileList.filter((file) => {
-      return cids.includes(file.cid);
-    });
-    console.log(cids);
-    console.log(response);
-    
+  }
+}
+
+const filteredFiles = response.data.fileList
+  .filter((file) => cids.includes(file.cid))
+  .map((file) => ({
+    ...file,
+    assetIssuer: cidIssuerMap[file.cid], // attach the account (acc) to the file
+  }));
+
+
+    // console.log(cids);
+    // console.log(response);
     
     console.log(filteredFiles);
     return filteredFiles;
