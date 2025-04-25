@@ -36,51 +36,59 @@ const getAsset = async () => {
     const response = await lighthouse.getUploads(lighthouseAPI);
     
 
-    // for (let index = 0; index < myAssets.balances.length; index++) {
-    //   if (myAssets.balances[index].asset_issuer) {
-    //     const acc = await server.loadAccount(
-    //       myAssets.balances[index].asset_issuer
-    //     );
-    //     if (acc.data_attr.videoCid) {
-    //       console.log(acc);
-          
-    //       console.log(acc.data_attr.videoCid);
-    //       const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
-    //       cids.push(decodedValue);
-    //     }
 
-    //     // const asset = await server.assets().forIssuer(myAssets.balances[index].asset_issuer).call();
-    //     // console.log(asset);
-    //   }
-    // }
-    // const filteredFiles = response.data.fileList.filter((file) => {
-    //   return cids.includes(file.cid);
-    // });
 
-    const cidIssuerMap: any = {}; // Map CID to account (acc)
+//     const cidIssuerMap: any = {}; // Map CID to account (acc)
+
+// for (let index = 0; index < myAssets.balances.length; index++) {
+//   if (myAssets.balances[index].asset_issuer) {
+//     const acc = await server.loadAccount(myAssets.balances[index].asset_issuer);
+
+//     if (acc.data_attr.videoCid) {
+//       const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
+//       cids.push(decodedValue);
+//       cidIssuerMap[decodedValue] = acc.account_id; // map cid to its account
+//     }
+//   }
+// }
+
+// const filteredFiles = response.data.fileList
+//   .filter((file) => cids.includes(file.cid))
+//   .map((file) => ({
+//     ...file,
+//     assetIssuer: cidIssuerMap[file.cid], // attach the account (acc) to the file
+//   }));
+
+const filteredFiles = [];
 
 for (let index = 0; index < myAssets.balances.length; index++) {
-  if (myAssets.balances[index].asset_issuer) {
-    const acc = await server.loadAccount(myAssets.balances[index].asset_issuer);
+  const balance = myAssets.balances[index];
+
+  if (
+    balance.asset_issuer &&
+    Number(balance.limit) === 100 &&
+    parseFloat(balance.balance) > 50
+  ) {
+    const acc = await server.loadAccount(balance.asset_issuer);
 
     if (acc.data_attr.videoCid) {
-      const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
-      cids.push(decodedValue);
-      cidIssuerMap[decodedValue] = acc.account_id; // map cid to its account
+      const decodedCid = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
+
+      const matchingFile = response.data.fileList.find((file) => file.cid === decodedCid);
+
+      filteredFiles.push({
+        file: matchingFile || null,
+        assetIssuer: acc,
+      });
+    } else {
+      filteredFiles.push({
+        file: null,
+        assetIssuer: acc,
+      });
     }
   }
 }
 
-const filteredFiles = response.data.fileList
-  .filter((file) => cids.includes(file.cid))
-  .map((file) => ({
-    ...file,
-    assetIssuer: cidIssuerMap[file.cid], // attach the account (acc) to the file
-  }));
-
-
-    // console.log(cids);
-    // console.log(response);
     
     console.log(filteredFiles);
     return filteredFiles;

@@ -364,7 +364,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
       ( */}
         <div>
 
-      <Publish cid={videoInformation.cid} assetAddress={assetAddress}/>
+      <Publish cid={videoInformation.cid} assetAddress={Array.isArray(issuer) ? issuer[0] : issuer || ''}/>
       </div>
     {/* ) : (
       <Mint cid={cid} assetAddress={assetAddress}/>

@@ -37,7 +37,7 @@ function StudioPage() {
         backgroundSize: "cover",
         backgroundRepeat: 'no-repeat',
       }} >
-        <div className='hidden md:block' >
+        <div className='hidden md:block h-[100vh]' >
         
 
         <Nav />

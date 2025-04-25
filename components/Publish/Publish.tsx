@@ -26,6 +26,7 @@ import ApproveTokens from '@/utils/functions/ApproveTokens';
 import {contracts} from '@/utils/config'
 import ListAsset from '@/utils/functions/ListAsset';
 import listingAnimationData from '@/public/animation/listing.json'
+import manageSellOffer from '@/utils/functions/manageSellOffer';
 
 
 
@@ -60,12 +61,13 @@ function StudioPage(props: PublishProps) {
     setApproving(true)
 
     
-    setListing(true)
-    const result = await ApproveTokens(assetAddress, amount)
-    const approve = await result;
+    // setListing(true)
+    // const result = await ApproveTokens(assetAddress, amount)
+    // const approve = await result;
+    // ListAsset(assetAddress, amount, price)
+    // setListing(false)
+    manageSellOffer(assetAddress)
     setApproving(false)
-    ListAsset(assetAddress, amount, price)
-    setListing(false)
   }
 
     
