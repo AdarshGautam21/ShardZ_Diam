@@ -16,6 +16,7 @@ import coin from "@/public/images/coin.png";
 import { Menu, MenuIcon } from "lucide-react";
 import { useConnect } from "@/context/ConnectContext";
 import getAsset from "@/utils/functions/getAssets";
+import getOffers from "@/utils/functions/getOffers";
 
 function Nav() {
   const {connect, disconnect, publicKey} = useConnect();
@@ -152,7 +153,7 @@ function Nav() {
             />
 
             <Image
-            onClick={getAsset}
+            onClick={getOffers}
               src={coin}
               className="w-[7vw] sm:w-[4vw]"
               alt=""
