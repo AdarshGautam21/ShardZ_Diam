@@ -52,6 +52,7 @@ import { log } from 'console';
 import CreateContent from '@/utils/functions/CreateContent';
 import { lighthouseAPI } from '@/utils/config'
 import issueAsset from '@/utils/functions/uploadVideo'
+import {ToastContainer, toast} from 'react-toastify'
 
 
 // import {ethers} from 'ethers'
@@ -148,10 +149,13 @@ const UploadPage: React.FC = () => {
       console.log('File Status:', output);
       console.log('Visit at https://gateway.lighthouse.storage/ipfs/' + output.data.Hash);
       
-    const diamres = await issueAsset(output.data.Hash, form.watch("Description"), form.watch('Title'));
+    const diamres = await issueAsset(output.data.Hash, form.watch("Description"), form.watch('Title'), thumbnailOutput.data.Hash);
     console.log(diamres);
+    toast.success("Video uploaded successfully")
     
     setUploading(false);
+    form.reset();
+    
     } catch (error) {
       console.error('Error uploading file:', error);
       setUploading(false);
@@ -614,6 +618,7 @@ const UploadPage: React.FC = () => {
         </div>
 
       </div>
+      <ToastContainer />
     </div>
   );
 }

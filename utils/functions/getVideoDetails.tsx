@@ -18,16 +18,30 @@ const getVideoDetails = async (asset_issuer: string) => {
         "https://diamtestnet.diamcircle.io/"
       );
     const account = await server.loadAccount(asset_issuer);
+    console.log(
+        "Account Details:",
+        account
+    );
+    
     const videoCid = Buffer.from(account.data_attr.videoCid, "base64").toString("utf-8");
     const videoInfo = await lighthouse.getFileInfo(videoCid);
-    const thumbnailCID = videoInfo.data.fileName.substring(
-      videoInfo.data.fileName.lastIndexOf(" ") + 1
-    );
+    console.log(videoInfo);
+    
+    // const thumbnailCID = videoInfo.data.fileName.substring(
+    //   videoInfo.data.fileName.lastIndexOf(" ") + 1
+    // );
     const title = Buffer.from(account.data_attr.title, "base64").toString("utf-8");
     const description = Buffer.from(account.data_attr.description, "base64").toString("utf-8");
+    const thumbnailCid = Buffer.from(account.data_attr.thumbnailCid, "base64").toString("utf-8");
+    console.log({
+        videoInfo: videoInfo,
+        thumbnailCID: thumbnailCid,
+        title: title,
+        description: description,});
+    
     return({
       videoInfo: videoInfo,
-      thumbnailCID: thumbnailCID,
+      thumbnailCID: thumbnailCid,
       title: title,
       description: description,})
   } catch (error) {

@@ -29,6 +29,7 @@ import getAssetAddress from '@/utils/functions/getAddress';
 import Mint from '@/components/Publish/Mint'
 import getTotalSupply from '@/utils/functions/getTotalSupply';
 import getVideoDetails from '@/utils/functions/getVideoDetails';
+import { useParams } from 'next/navigation';
 
 // import {ethers} from 'ethers'
 
@@ -47,6 +48,13 @@ const formSchema = z.object({
 
 const UploadPage =() => {
   const router = useRouter();
+  const { issuer } = router.query;
+  console.log(issuer);
+  
+  // const params = useParams();
+  // const issuer = params?.issuer;
+
+
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
   const [portion, setPortion] = useState<number>(50); // Initial portion value
   const [price, setPrice] = useState<number>(0); // Initial price value
@@ -63,7 +71,6 @@ const UploadPage =() => {
 
 
 
-  const { issuer } = router.query;
   
       const [videoInformation, setVideoInformation] = useState<any>(null)
       // let VideoInfo;
@@ -112,6 +119,7 @@ useEffect(() => {
         title: string;
         description: string;
       };
+      console.log(videoInfo, thumbnailCID, title, description);
       setVideoInformation(videoInfo.data);
       setThumbnail(thumbnailCID); 
       setTitle(title);
@@ -121,7 +129,7 @@ useEffect(() => {
       
     
   })(); // Notice the immediate invocation here
-}, []);
+}, [issuer]);
 
 
 function onSubmit(values: z.infer<typeof formSchema>) {
@@ -130,7 +138,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
 
 
 
-  if(!videoInformation){
+  if(!videoInformation || !issuer){
     return(
       <div className='bg-[#0D0D0E]' style={{
         backgroundImage: `url(${ellipse.src})`,
@@ -221,7 +229,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel> Title (required) </FormLabel>
                     <FormControl className='rounded-[0.5vw]' >
-                      <Input disabled className='bg-[#00000033]' {...field} value={videoInformation.fileName.substring(0, videoInformation.fileName.lastIndexOf(' '))}/>
+                      <Input disabled className='bg-[#00000033]' {...field} value={title}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -327,7 +335,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel> Title (required) </FormLabel>
                     <FormControl className='rounded-[2vw]' >
-                      <Input className='bg-[#00000033]' {...field} disabled value={videoInformation.fileName.substring(0, videoInformation.fileName.lastIndexOf(' '))}/>
+                      <Input className='bg-[#00000033]' {...field} disabled value={title}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
