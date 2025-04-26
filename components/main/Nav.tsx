@@ -17,7 +17,6 @@ import { Menu, MenuIcon } from "lucide-react";
 import { useConnect } from "@/context/ConnectContext";
 import getAsset from "@/utils/functions/getAssets";
 import getOffers from "@/utils/functions/getOffers";
-import setOffer from "@/utils/functions/Appwrite";
 
 function Nav() {
   const {connect, disconnect, publicKey} = useConnect();
