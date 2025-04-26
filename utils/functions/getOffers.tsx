@@ -10,28 +10,35 @@ var {
 import { obj, secret, pub } from "@/utils/key";
 const publicKey = Cookies.get("publicKey");
 import lighthouse from "@lighthouse-web3/sdk";
-import { lighthouseAPI } from "@/utils/config";
+import { lighthouseAPI, lighthouseText } from "@/utils/config";
 
 const getOffers = async () => {
   try {
-    const res = await fetch(
-        `https://diamtestnet.diamcircle.io/offers?cursor=12&limit=1000&order=asc`
+    const allOffers: any = [];
+
+    const response = await lighthouse.getUploads(lighthouseText);
+    console.log(response);
+
+    const data = response.data.fileList;
+
+    for (let index = 0; index < data.length; index++) {
+      const res = await fetch(
+        `https://diamtestnet.diamcircle.io/offers/${data[index].fileName}`
       );
-      console.log(res);
-        const offers = await res.json();
-        console.log(offers);
-        
-      
+      const offer = await res.json();
+      allOffers.push(offer);
+    }
+
+    console.log(allOffers);
+
     const server = await new DiamSdk.Aurora.Server(
-        "https://diamtestnet.diamcircle.io/"
-      );
+      "https://diamtestnet.diamcircle.io/"
+    );
     // const account = await server.loadAccount(asset_issuer);
     // console.log(
     //     "Account Details:",
     //     account
     // );
-    
-    
   } catch (error) {
     console.error("Error getting Video Details:", error);
     return error;

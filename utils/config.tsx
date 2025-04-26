@@ -20,3 +20,5 @@ export const abi = {
 
 // export const lighthouseAPI = 'edf09a91.36418496da29464da5a6feb33c4bd2a0'
 export const lighthouseAPI = '54a8b7ab.8c4a0a96af014ebdbfee7cfe0b70fad2'
+
+export const lighthouseText = '5c4b26fe.60a61e50468846a7a38630c43e7e6197'

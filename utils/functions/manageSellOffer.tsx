@@ -9,13 +9,13 @@ var {
 } = require("diamnet-sdk");
 import { obj, secret, pub } from "@/utils/key";
 import lighthouse from "@lighthouse-web3/sdk";
-import { lighthouseAPI } from "@/utils/config";
+import { lighthouseAPI, lighthouseText } from "@/utils/config";
 
 const publicKey = Cookies.get("publicKey");
 
 const manageSellOffer = async (asset_issuer: string) => {
   try {
-    console.log("nav clicked");
+    let txresult: any;
     
     const server = await new DiamSdk.Aurora.Server(
         "https://diamtestnet.diamcircle.io/"
@@ -60,9 +60,19 @@ const xdr = transaction.toXDR();
     "Diamante Testnet 2024"
   )
   .then((res: any) => {
+    txresult = res;
     console.log(res)
+    
   return res;
 });
+
+const text = txresult.message.data.offerResults[0].currentOffer.offerId;
+const apiKey = lighthouseText
+const name = txresult.message.data.offerResults[0].currentOffer.offerId //Optional
+
+const response = await lighthouse.uploadText(text, apiKey, name)
+
+console.log(response)
 
   } catch (error) {
     console.error("Error getting Video Details:", error);
