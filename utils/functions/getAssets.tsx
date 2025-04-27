@@ -65,8 +65,7 @@ for (let index = 0; index < myAssets.balances.length; index++) {
   const balance = myAssets.balances[index];
 
   if (
-    balance.asset_issuer &&
-    Number(balance.limit) === 100 &&
+    balance.asset_issuer  &&
     parseFloat(balance.balance) > 50
   ) {
     const acc = await server.loadAccount(balance.asset_issuer);
