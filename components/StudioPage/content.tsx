@@ -132,6 +132,10 @@ const Content = () => {
   }, []);
 
 
+  function parseDate(dateStr: any) {
+    const [day, month, year] = dateStr.split('/');
+    return new Date(`${year}-${month}-${day}`);
+  }
 
 
 
@@ -148,24 +152,30 @@ const Content = () => {
 
 <div className="mx-auto space-y-[2vw] hidden md:block ">
       
-      {allVideos?.map((video,index) => (
-        <Link href={`/PublishToMarketplace?issuer=${video.assetIssuer.account_id}`} key={index} >
+      {allVideos
+  ?.slice()
+  .sort((a, b) => {
+    const dateA: any = parseDate(Buffer.from(a.data_attr.date, "base64").toString("utf-8"));
+    const dateB: any = parseDate(Buffer.from(b.data_attr.date, "base64").toString("utf-8"));
+    return dateB - dateA; // Newest first
+  }).map((video,index) => (
+        <Link href={`/PublishToMarketplace?issuer=${video.account_id}`} key={index} >
             <div className='bg-gradient-to-r from-[#fff0] via-[#ffffff2d] to-cyan-400 p-[0.1vw] rounded-[0.5vw] mb-[0.5vw]' >
               
               <div className="bg-black flex items-center p-[0.5vw] text-white rounded-[0.5vw]">
                 <div className='w-4/12 relative' style={{ width: '100%', maxWidth: '300px' }}>
 
                 {/* <img src={`https://gateway.lighthouse.storage/ipfs/${video.fileName.substring(video.fileName.lastIndexOf(' ') + 1)}`} alt={video.fileName} className='w-full h-[20vh]'   /> */}
-                <img src={`https://gateway.lighthouse.storage/ipfs/${video.file.fileName.substring(video.file.fileName.lastIndexOf(' ') + 1)}`} alt={video.file.fileName} className='w-full h-[20vh]'   />
+                <img src={`https://gateway.lighthouse.storage/ipfs/${Buffer.from(video.data_attr.thumbnailCid, "base64").toString("utf-8")}`} alt={Buffer.from(video.data_attr.title, "base64").toString("utf-8")} className='w-full h-[20vh]'   />
                 
                 {/* <div className='absolute bottom-[1vw] px-[1vw] text-[1vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.time}</div> */}
 
                 </div>
                   <div className="w-[100%] p-[0.8vw] md:p-[1vw] flex items-center">
                     <div className='w-1/2 mr-[2vw] ' >
-                      <p className='text-[2vw] md:text-[1vw] lg:text-[1vw] ' >{video.file.fileName.substring(0, video.file.fileName.lastIndexOf(' '))}</p>
+                      <p className='text-[2vw] md:text-[1vw] lg:text-[1vw] ' >{Buffer.from(video.data_attr.title, "base64").toString("utf-8")}</p>
                       {/* <p className='text-[2vw] md:text-[1vw] lg:text-[1vw] ' >{video.title}</p> */}
-                      <p className="  text-[1vw] md:text-[0.8vw] text-[#808191] mb-[0.2vw]">{Buffer.from(video.assetIssuer.data_attr.description, "base64").toString("utf-8")} </p>
+                      <p className="  text-[1vw] md:text-[0.8vw] text-[#808191] mb-[0.2vw]">{Buffer.from(video.data_attr.description, "base64").toString("utf-8")} </p>
                     </div>
                     <div className='flex w-1/2 justify-between' >
                       <div className='text-center' >
@@ -174,7 +184,7 @@ const Content = () => {
                       </div>
                       <div className='text-center' >
                         <p className='text-gray-500 text-[0.8vw]' >Date</p>  
-                        <p className='text-[1vw]' >Apr 13, 2023</p>
+                        <p className='text-[1vw]' >{Buffer.from(video.data_attr.date, "base64").toString("utf-8")}</p>
                       </div>
                       <div className='text-center' >
                         <p className='text-gray-500 text-[0.8vw]' >Comments</p>  
@@ -213,23 +223,23 @@ const Content = () => {
     <div className="mx-[2vw] space-y-[2vw]  md:hidden ">
     
       {allVideos?.map((video, index) => (
-        <Link href={`/PublishToMarketplace?issuer=${video.assetIssuer.account_id}`} key={index}>
+        <Link href={`/PublishToMarketplace?issuer=${video.account_id}`} key={index}>
           <div className='bg-gradient-to-r from-[#fff0] via-[#ffffff2d] to-cyan-400 p-[0.2vw] rounded-[1vw]'>
               
-              <div key={video.file.id} className="bg-black items-center p-[2vw]  text-white rounded-[0.5vw]">
+              <div className="bg-black items-center p-[2vw]  text-white rounded-[0.5vw]">
                 <div className='  relative w-full  flex ' >
 
                 {/* <img src={video.thumbnail.src} className='w-[80%]' alt={video.title}   /> */}
 
-                <img src={`https://gateway.lighthouse.storage/ipfs/${video.file.fileName.substring(video.file.fileName.lastIndexOf(' ') + 1)}`} alt={video.file.fileName} className='w-full h-[20vh]'   />
+                <img src={`https://gateway.lighthouse.storage/ipfs/${Buffer.from(video.data_attr.thumbnailCid, "base64").toString("utf-8")}`} alt={Buffer.from(video.data_attr.title, "base64").toString("utf-8")} className='w-full h-[20vh]'   />
 
                 {/* <div className='absolute bottom-[1vw] px-[1vw] text-[1vw] rounded-[0.5vw]  bg-[#0000002f] right-[1vw] ' >{video.time}</div> */}
                 <div className='w-full p-[1vw]  ' >
                       {/* <p className='text-[3vw] md:text-[1vw] lg:text-[1vw] ' >{video.title}</p>
                       <p className="  text-[2vw] md:text-[0.8vw] text-[#808191] mb-[0.2vw]">{video.description}</p> */}
-                      <p className='text-[2vw] md:text-[1vw] lg:text-[1vw] ' >{video.file.fileName.substring(0, video.file.fileName.lastIndexOf(' '))}</p>
+                      <p className='text-[2vw] md:text-[1vw] lg:text-[1vw] ' >{Buffer.from(video.data_attr.title, "base64").toString("utf-8")}</p>
                       {/* <p className='text-[2vw] md:text-[1vw] lg:text-[1vw] ' >{video.title}</p> */}
-                      <p className="  text-[1vw] md:text-[0.8vw] text-[#808191] mb-[0.2vw]">{Buffer.from(video.assetIssuer.data_attr.description, "base64").toString("utf-8")} </p>
+                      <p className="  text-[1vw] md:text-[0.8vw] text-[#808191] mb-[0.2vw]">{Buffer.from(video.data_attr.description, "base64").toString("utf-8")} </p>
                     </div>
                 </div>
                   <div className=" w-[full] p-[0.8vw] md:p-[1vw] flex items-center">

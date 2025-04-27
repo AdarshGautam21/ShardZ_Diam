@@ -71,20 +71,12 @@ for (let index = 0; index < myAssets.balances.length; index++) {
     const acc = await server.loadAccount(balance.asset_issuer);
 
     if (acc.data_attr.videoCid) {
-      const decodedCid = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
+      // const decodedCid = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
 
-      const matchingFile = response.data.fileList.find((file) => file.cid === decodedCid);
+      // const matchingFile = response.data.fileList.find((file) => file.cid === decodedCid);
 
-      filteredFiles.push({
-        file: matchingFile || null,
-        assetIssuer: acc,
-      });
-    } else {
-      filteredFiles.push({
-        file: null,
-        assetIssuer: acc,
-      });
-    }
+      filteredFiles.push(acc);
+    } 
   }
 }
 
