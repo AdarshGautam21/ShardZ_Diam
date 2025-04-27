@@ -36,12 +36,14 @@ import getListing from '@/utils/functions/getListing';
 import BuyAssetTokens from '@/utils/functions/BuyAssetTokens';
 import getOfferDetails from '@/utils/functions/getOfferDetails';
 import { toast, ToastContainer } from 'react-toastify';
+import buyOffer from '@/utils/functions/buyOffer';
 function NftPage() {
     const searchParams = useSearchParams();
     const offerId = searchParams?.get('offerid');
 
     const [count, setCount] = useState(0);
     const [offerDetails, setOfferDetails] = useState<any>(null);
+    const [totalAmount, setTotalAmount] = useState(0);
   const increaseCount = () => {
     if (count >= Number(offerDetails?.offer.amount)) {
       toast.error("You cannot buy more than the available tokens.");
@@ -62,6 +64,8 @@ function NftPage() {
     // const buy = await BuyAssetTokens(searchParams?.get('video'), count, price)
     // const result = await buy;
     // console.log(result);
+
+    const buyResult = await buyOffer(offerId, count);
     
   }
 
@@ -110,7 +114,7 @@ function NftPage() {
                         <div>
                             <div className='flex items-center space-x-[0.5vw]' >
                                 <p className='text-white text-[4vw] md:text-[1.4vw]' >Price : </p>
-                                <p className=' text-[6vw] md:text-[1.5vw] font-semibold bg-gradient-to-r inline-block text-transparent bg-clip-text from-[#33C1EE] via-[#8DDCF5]  to-[#FFFFFF] ' >{Number(offerDetails.offer.price)} {" "} Diam</p>
+                                <p className=' text-[6vw] md:text-[1.5vw] font-semibold bg-gradient-to-r inline-block text-transparent bg-clip-text from-[#33C1EE] via-[#8DDCF5]  to-[#FFFFFF] ' >{Number(offerDetails.offer.price)} {" "} diam per 1 token</p>
                             </div>
                             <div className='flex items-center space-x-[0.5vw]' >
                                 <p className='text-white text-[4vw] md:text-[1.4vw]' >Total Available Tokens : </p>
@@ -142,6 +146,13 @@ function NftPage() {
 
 
                             </div>
+                            {count > 0 && (
+
+                            <div className='flex items-center space-x-[0.5vw] mt-5' >
+                                <p className='text-white text-[4vw] md:text-[1.4vw]' >Total Price : </p>
+                                <p className=' text-[6vw] md:text-[1.5vw] font-semibold bg-gradient-to-r inline-block text-transparent bg-clip-text from-[#33C1EE] via-[#8DDCF5]  to-[#FFFFFF] ' >{Number(offerDetails.offer.price)* count} {" "} diam</p>
+                            </div>
+                            )}
                         </div>
                         </form>
 

@@ -13,8 +13,18 @@ import { lighthouseAPI, lighthouseText } from "@/utils/config";
 
 const publicKey = Cookies.get("publicKey");
 
-const manageSellOffer = async (asset_issuer: string, amount: any, price : any) => {
+const buyOffer = async (offerId: any, amount: any) => {
   try {
+
+    const res = await fetch(
+        `https://diamtestnet.diamcircle.io/offers/${offerId}`
+      );
+    const offer = await res.json();
+    console.log(offer);
+    
+
+    const price = (Number(offer.price)*Number(offer.amount))/Number(amount)
+
     let txresult: any;
     
     const server = await new DiamSdk.Aurora.Server(
@@ -25,11 +35,11 @@ const manageSellOffer = async (asset_issuer: string, amount: any, price : any) =
         "Account Details:",
         account
     );
-    const issuerAccount = await server.loadAccount(asset_issuer);
+    const issuerAccount = await server.loadAccount(offer.selling.asset_issuer);
     console.log(issuerAccount);
     
     
-    const asset = new DiamSdk.Asset("Newasset", asset_issuer);
+    const asset = new DiamSdk.Asset("Newasset", offer.selling.asset_issuer);
 
     const transaction = new TransactionBuilder(account, {
         fee: BASE_FEE,
@@ -39,13 +49,12 @@ const manageSellOffer = async (asset_issuer: string, amount: any, price : any) =
           asset: asset,
         })
       )
-      .addOperation(Operation.manageSellOffer({
-        selling: asset,
-        buying: DiamSdk.Asset.native(),
-        amount: String(amount),
-        price: String(Number(price)/Number(amount)),
+      .addOperation(Operation.manageBuyOffer({
+        selling: DiamSdk.Asset.native(),
+        buying: asset,
+        buyAmount: String(amount),
+        price: String(price),
         offerId: '0',
-        source: publicKey
       }))
       .setTimeout(30)
   .build();
@@ -66,18 +75,10 @@ const xdr = transaction.toXDR();
   return res;
 });
 
-const text = txresult.message.data.offerResults[0].currentOffer.offerId;
-const apiKey = lighthouseText
-const name = txresult.message.data.offerResults[0].currentOffer.offerId //Optional
-
-const response = await lighthouse.uploadText(text, apiKey, name)
-
-console.log(response)
-
   } catch (error) {
     console.error("Error getting Video Details:", error);
     return error;
   }
 };
 
-export default manageSellOffer;
+export default buyOffer;

@@ -66,7 +66,7 @@ function StudioPage(props: PublishProps) {
     // const approve = await result;
     // ListAsset(assetAddress, amount, price)
     // setListing(false)
-    manageSellOffer(assetAddress)
+    manageSellOffer(assetAddress, amount, price)
     setApproving(false)
   }
 
