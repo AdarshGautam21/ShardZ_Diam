@@ -34,29 +34,6 @@ const getBoughtAsset = async () => {
     const cids: string[] = [];
     
 
-
-
-//     const cidIssuerMap: any = {}; // Map CID to account (acc)
-
-// for (let index = 0; index < myAssets.balances.length; index++) {
-//   if (myAssets.balances[index].asset_issuer) {
-//     const acc = await server.loadAccount(myAssets.balances[index].asset_issuer);
-
-//     if (acc.data_attr.videoCid) {
-//       const decodedValue = Buffer.from(acc.data_attr.videoCid, "base64").toString("utf-8");
-//       cids.push(decodedValue);
-//       cidIssuerMap[decodedValue] = acc.account_id; // map cid to its account
-//     }
-//   }
-// }
-
-// const filteredFiles = response.data.fileList
-//   .filter((file) => cids.includes(file.cid))
-//   .map((file) => ({
-//     ...file,
-//     assetIssuer: cidIssuerMap[file.cid], // attach the account (acc) to the file
-//   }));
-
 const purchasedAssets = [];
 
 for (let index = 0; index < myAssets.balances.length; index++) {

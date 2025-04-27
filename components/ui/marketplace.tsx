@@ -56,7 +56,7 @@ const Market = () => {
                         <div className='flex text-center items-center justify-between text-[2vw] md:text-[0.8vw] text-[#808191] space-x-[0.5vw]' >
                             {/* <p className='text-[3vw] md:text-[1vw] lg:text-[0.8vw] ' >{rewards[0].creator}</p> */}
                             
-                            <p className=' text-[3vw] md:text-[1.5vw] font-semibold bg-gradient-to-r inline-block text-transparent bg-clip-text from-[#33C1EE] via-[#8DDCF5]  to-[#FFFFFF] ' >{asset[1]} {" "} wei</p>
+                            <p className=' text-[3vw] md:text-[1.5vw] font-semibold bg-gradient-to-r inline-block text-transparent bg-clip-text from-[#33C1EE] via-[#8DDCF5]  to-[#FFFFFF] ' >{Number(asset.price)} {" "} diam per token</p>
                         </div>
 
                     </div>
