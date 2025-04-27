@@ -161,7 +161,7 @@ function MarketPlace() {
                     </button>
                 </div>
             </div>
-            <div className='flex justify-between mt-[2vw]'>
+            <div className='flex justify-between mt-[2vw] h-[100vh]'>
             
 
             <Sidemenu />
@@ -169,19 +169,7 @@ function MarketPlace() {
                     <div>
                         <h2 className='text-white text-[5vw] md:text-[2vw] cursor-pointer font-semibold'>Explore Marketplace</h2>
                     </div>
-                    <div className='slider-container'>
-                        <Slider {...settings}>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>All</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Music</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>BlockChain</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Education</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Gaming</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Podcast</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Hobbies</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Comedy</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Stocks</p></div>
-                        </Slider>
-                    </div>
+                    
                     <Market/>
                 </div>
             </div>

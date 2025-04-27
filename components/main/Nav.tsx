@@ -203,6 +203,11 @@ function Nav() {
                     Creator Studio
                   </DropdownMenuItem>
                 </Link>
+                <Link href="/my-assets">
+                  <DropdownMenuItem className="text-white cursor-pointer">
+                    My Assets
+                  </DropdownMenuItem>
+                </Link>
                   <DropdownMenuItem className="text-white cursor-pointer" onClick={disconnectWallet}>
                     Disconnect Wallet
                   </DropdownMenuItem>

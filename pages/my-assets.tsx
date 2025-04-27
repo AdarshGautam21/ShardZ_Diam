@@ -29,6 +29,7 @@ import Link from 'next/link';
 import Market from '../components/ui/marketplace';
 import { ethers } from 'ethers';
 import contractABI from '@/public/abi/createNft.json'
+import BoughtAssets from '@/components/ui/boughtAssets';
 
 
 function MyAssets() {
@@ -118,12 +119,6 @@ function MyAssets() {
         ]
     };
 
-
-    const [signer, setSigner] = useState<any>('')
-  const [contract, setContract] = useState<any>('')
-
-  const transactionList: any[] = [];
-
   
 
     return (
@@ -161,28 +156,15 @@ function MyAssets() {
                     </button>
                 </div>
             </div>
-            <div className='flex justify-between mt-[2vw]'>
+            <div className='flex justify-between mt-[2vw] h-[100vh]'>
             
 
             <Sidemenu />
                 <div className='w-[95%] mx-[2vw] md:w-4/5 md:mx-auto space-y-[1vw]'>
                     <div>
-                        <h2 className='text-white text-[5vw] md:text-[2vw] cursor-pointer font-semibold'>Explore Marketplace</h2>
+                        <h2 className='text-white text-[5vw] md:text-[2vw] cursor-pointer font-semibold'>Purchased Assets</h2>
                     </div>
-                    <div className='slider-container'>
-                        <Slider {...settings}>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>All</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Music</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>BlockChain</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Education</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Gaming</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Podcast</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Hobbies</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Comedy</p></div>
-                            <div className='text-center'><p className='text-white px-[1vw] text-[2.5vw] md:text-[1.5vw] lg:text-[1vw] py-[0.2vw] rounded-[0.3vw] cursor-pointer hover:bg-[#33C1EE]'>Stocks</p></div>
-                        </Slider>
-                    </div>
-                    <Market/>
+                    <BoughtAssets />
                 </div>
             </div>
         </div>
