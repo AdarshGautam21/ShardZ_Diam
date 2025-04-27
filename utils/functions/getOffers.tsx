@@ -15,7 +15,10 @@ import { lighthouseAPI, lighthouseText } from "@/utils/config";
 const getOffers = async () => {
   try {
     const allOffers: any = [];
-
+    
+    const server = await new DiamSdk.Aurora.Server(
+      "https://diamtestnet.diamcircle.io/"
+    );
     const response = await lighthouse.getUploads(lighthouseText);
     console.log(response);
 
@@ -31,14 +34,19 @@ const getOffers = async () => {
 
     console.log(allOffers);
 
-    const server = await new DiamSdk.Aurora.Server(
-      "https://diamtestnet.diamcircle.io/"
-    );
-    // const account = await server.loadAccount(asset_issuer);
-    // console.log(
-    //     "Account Details:",
-    //     account
-    // );
+    for (let index = 0; index < allOffers.length; index++) {
+      const element = allOffers[index];
+      const account = await server.loadAccount(allOffers[index].selling.asset_issuer);
+      console.log(
+          "Account Details:",
+          account
+      );
+      allOffers[index].account = account
+      
+    }
+    console.log(allOffers);
+    
+    return allOffers;
   } catch (error) {
     console.error("Error getting Video Details:", error);
     return error;
