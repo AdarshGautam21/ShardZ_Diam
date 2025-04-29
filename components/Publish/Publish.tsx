@@ -27,6 +27,7 @@ import {contracts} from '@/utils/config'
 import ListAsset from '@/utils/functions/ListAsset';
 import listingAnimationData from '@/public/animation/listing.json'
 import manageSellOffer from '@/utils/functions/manageSellOffer';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 
@@ -66,13 +67,17 @@ function StudioPage(props: PublishProps) {
     // const approve = await result;
     // ListAsset(assetAddress, amount, price)
     // setListing(false)
-    manageSellOffer(assetAddress, amount, price)
+    const sellOffer = await manageSellOffer(assetAddress, amount, price)
+    toast.success("Tokens listed successfully")
     setApproving(false)
   }
 
     
   return (
       <Tabs defaultValue="setprice" className=" w-[300px] md:w-[400px] lg:w-[400px]  rounded-xl mx-auto">
+        {approving && <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10000 }}>
+                    <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>
+                </div>}
         {listing && <div style={{position: 'fixed',
           top: 0,
           left: 0,
@@ -150,6 +155,7 @@ function StudioPage(props: PublishProps) {
           </form>
         </Card>
       </TabsContent>
+      <ToastContainer />
     </Tabs>
   )
 }

@@ -43,6 +43,7 @@ function NftPage() {
 
     const [count, setCount] = useState(0);
     const [offerDetails, setOfferDetails] = useState<any>(null);
+    const [loading, setLoading] = useState(false);
     const [totalAmount, setTotalAmount] = useState(0);
   const increaseCount = () => {
     if (count >= Number(offerDetails?.offer.amount)) {
@@ -61,13 +62,16 @@ function NftPage() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
+    setLoading(true);
     // const buy = await BuyAssetTokens(searchParams?.get('video'), count, price)
     // const result = await buy;
     // console.log(result);
 
     const buyResult = await buyOffer(offerId, count);
-    
-  }
+    setLoading(false);
+    toast.success("Transaction successful!")
+    window.location.reload();
+  };
 
   useEffect(() => {
     (async () => {
@@ -87,6 +91,10 @@ function NftPage() {
         backgroundSize: "cover",
         backgroundRepeat: 'no-repeat',
       }} >
+        {loading && <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10000 }}>
+                    <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute"></div>
+                </div>
+        }
         {offerDetails &&  (
         <div>
         <Nav />
