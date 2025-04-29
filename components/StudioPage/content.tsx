@@ -120,7 +120,7 @@ const Content = () => {
       setLoading(true);
       try {
         const res: any = await getAsset();
-        setAllVideos(res); // no need to await res again
+        setAllVideos(res); // no need to await res again.
       } catch (error) {
         console.error('Failed to fetch asset:', error);
       } finally {
