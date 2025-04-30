@@ -23,7 +23,7 @@ const buyOffer = async (offerId: any, amount: any) => {
     console.log(offer);
     
 
-    const price = (Number(offer.price)*Number(offer.amount))/Number(amount)
+    const price = Number(offer.price)
 
     let txresult: any;
     
