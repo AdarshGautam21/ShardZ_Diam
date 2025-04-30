@@ -25,9 +25,7 @@ import contractABI from '@/public/abi/assetMarket.json';
 import { useRouter } from 'next/router';
 import {contracts} from '@/utils/config'
 import Publish from '@/components/Publish/Publish'
-import getAssetAddress from '@/utils/functions/getAddress';
 import Mint from '@/components/Publish/Mint'
-import getTotalSupply from '@/utils/functions/getTotalSupply';
 import getVideoDetails from '@/utils/functions/getVideoDetails';
 import { useParams } from 'next/navigation';
 

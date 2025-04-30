@@ -31,9 +31,6 @@ import Link from 'next/link';
 
 
 import { Button } from '../components/ui/button';
-import getAssetAddress from '@/utils/functions/getAddress';
-import getListing from '@/utils/functions/getListing';
-import BuyAssetTokens from '@/utils/functions/BuyAssetTokens';
 import getOfferDetails from '@/utils/functions/getOfferDetails';
 import { toast, ToastContainer } from 'react-toastify';
 import buyOffer from '@/utils/functions/buyOffer';
