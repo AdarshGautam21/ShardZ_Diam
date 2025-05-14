@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 interface Props {
   cid: any; // Content Identifier (e.g., IPFS CID)
-  assetAddress: string; // Asset address for the marketplace
+  assetAddress: string; // Asset address for the marketplace.
 }
 
 function Mint({ cid, assetAddress }: Props) {
