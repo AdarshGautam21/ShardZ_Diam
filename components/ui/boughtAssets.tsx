@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import thumbnail from '@/public/images/thumbnail.png'
 import { Button } from './button';
 import Link from 'next/link'
-import getAllAssets from '@/utils/functions/getAllAssets'
 import getOffers from '@/utils/functions/getOffers';
 import getBoughtAsset from '@/utils/functions/getBoughtAssets';
 

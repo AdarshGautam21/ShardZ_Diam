@@ -22,9 +22,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import CreateContent from '@/utils/functions/CreateContent';
-import ApproveTokens from '@/utils/functions/ApproveTokens';
 import {contracts} from '@/utils/config'
-import ListAsset from '@/utils/functions/ListAsset';
 import listingAnimationData from '@/public/animation/listing.json'
 import manageSellOffer from '@/utils/functions/manageSellOffer';
 import { toast, ToastContainer } from 'react-toastify';
